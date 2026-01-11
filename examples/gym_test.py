@@ -5,9 +5,10 @@ date: 20 October 2018
 notes: This will do a basic test of gym_donkeycar environment by
         submitting random input for 3 episodes.
 """
+
 import argparse
 
-import gym
+import gymnasium as gym
 
 import gym_donkeycar  # noqa: F401
 
@@ -35,16 +36,16 @@ def select_action(env):
 def simulate(env):
     for _ in range(NUM_EPISODES):
         # Reset the environment
-        obv = env.reset()
+        obv, info = env.reset()
 
         for _ in range(MAX_TIME_STEPS):
             # Select an action
             action = select_action(env)
 
             # execute the action
-            obv, reward, done, info = env.step(action)
+            obv, reward, terminated, truncated, info = env.step(action)
 
-            if done:
+            if terminated or truncated:
                 print("done w episode.", info)
                 break
 
