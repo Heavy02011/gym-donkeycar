@@ -51,7 +51,7 @@ def simulate(env):
 
 
 def exit_scene(env):
-    env.viewer.exit_scene()
+    env.unwrapped.viewer.exit_scene()
 
 
 if __name__ == "__main__":

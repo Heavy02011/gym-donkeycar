@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
     env = gym.make(args.env_name, conf=conf)
 
-    print("Env cam size: {}".format(env.viewer.get_sensor_size()))
+    print("Env cam size: {}".format(env.unwrapped.viewer.get_sensor_size()))
 
     speed = 0.5
     steer = 0.0

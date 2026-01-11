@@ -62,11 +62,11 @@ class KerasDriveAgent(KerasNNAgent):
             K.set_session(self.sess)
             self.model._make_predict_function()
 
-        env = gym.make(conf["env_name"], exe_path="remote", host=conf["host"], port=conf["port"])
+        env = gym.make(conf["env_name"], conf={"exe_path": "remote", "host": conf["host"], "port": conf["port"]})
 
         # setup some custom reward and over functions
-        env.set_reward_fn(custom_reward)
-        env.set_episode_over_fn(custom_episode_over)
+        env.unwrapped.viewer.set_reward_fn(custom_reward)
+        env.unwrapped.viewer.set_episode_over_fn(custom_episode_over)
 
         self.simulate(env)
         env.close()

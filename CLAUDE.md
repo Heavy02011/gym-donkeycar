@@ -147,13 +147,38 @@ All environments use the same observation/action spaces but differ in the simula
 
 ## Examples
 
-See `examples/` directory:
+See `examples/` directory for working code samples. **All examples have been updated for Gymnasium.**
+
 - `gym_test.py`: Basic environment test with random actions
-- `reinforcement_learning/ppo_train.py`: PPO training example
-- `reinforcement_learning/ddqn.py`: DDQN implementation
-- `genetic_alg/`: Genetic algorithm examples
-- `supervised_learning/`: Supervised learning from recorded data
 - `test_cam_config.py`: Camera configuration testing
+- `reinforcement_learning/ppo_train.py`: PPO training with Stable-Baselines3
+- `reinforcement_learning/ddqn.py`: DDQN implementation
+- `genetic_alg/`: Genetic algorithm (⚠️ requires TensorFlow 1.x, legacy)
+- `supervised_learning/`: Supervised learning from recorded data
+
+**Important**: See `examples/EXAMPLES_README.md` for:
+- Complete installation requirements for each example
+- Usage instructions and command-line options
+- Troubleshooting common issues
+- Notes on Gymnasium API changes
+
+### Running Examples with Live Simulator
+
+When testing examples with a running simulator, use `--sim manual`:
+```bash
+python examples/gym_test.py --sim manual --env_name donkey-generated-track-v0 --port 9091
+```
+
+### Gymnasium Wrapper Compatibility
+
+With Gymnasium, environments are wrapped by default. To access custom gym-donkeycar attributes:
+```python
+env.unwrapped.viewer.exit_scene()
+env.unwrapped.viewer.set_reward_fn(custom_fn)
+env.unwrapped.viewer.set_episode_over_fn(custom_fn)
+```
+
+**Do not use** `env.viewer` directly - it will raise `AttributeError` with Gymnasium wrappers.
 
 ## Simulator Binary
 
