@@ -66,7 +66,7 @@ setup(
     license="MIT license",
     long_description=readme + "\n\n" + history,
     include_package_data=True,
-    keywords="donkeycar, environment, agent, rl, openaigym, openai-gym, gym",
+    keywords="donkeycar, environment, agent, rl, openaigym, openai-gym, gym, gymnasium",
     packages=find_packages(),
     url="https://github.com/tawnkramer/gym-donkeycar",
     version=__version__,
