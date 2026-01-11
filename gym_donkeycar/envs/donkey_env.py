@@ -51,6 +51,7 @@ class DonkeyEnv(gym.Env):
 
     :param level: name of the level to load
     :param conf: configuration dictionary
+    :param render_mode: mode for rendering ("human" or "rgb_array")
     """
 
     metadata = {"render_modes": ["human", "rgb_array"]}
@@ -62,6 +63,10 @@ class DonkeyEnv(gym.Env):
         print("starting DonkeyGym env")
         self.viewer = None
         self.proc = None
+
+        # Validate render_mode
+        if render_mode is not None and render_mode not in self.metadata["render_modes"]:
+            raise ValueError(f"Invalid render_mode '{render_mode}'. Supported modes: {self.metadata['render_modes']}")
         self.render_mode = render_mode
 
         if conf is None:
@@ -132,12 +137,20 @@ class DonkeyEnv(gym.Env):
             self.viewer.take_action(action)
             observation, reward, done, info = self.viewer.observe()
         # Gymnasium step returns (observation, reward, terminated, truncated, info)
-        # 'done' from the original implementation represents termination
+        # 'done' from the simulator represents termination (collision, out of bounds)
+        # truncated is always False as this env doesn't implement time-based truncation
         return observation, reward, done, False, info
 
     def reset(
         self, *, seed: Optional[int] = None, options: Optional[Dict[str, Any]] = None
     ) -> Tuple[np.ndarray, Dict[str, Any]]:
+        """
+        Reset the environment to initial state.
+
+        :param seed: Optional seed for random number generator
+        :param options: Optional dict for additional reset options (not currently used)
+        :return: Tuple of (observation, info)
+        """
         # Handle seeding
         if seed is not None:
             self.np_random = np.random.default_rng(seed)
