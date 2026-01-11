@@ -12,6 +12,8 @@ import uuid
 import gymnasium as gym
 from stable_baselines3 import PPO
 
+import gym_donkeycar  # noqa: F401
+
 if __name__ == "__main__":
     # Initialize the donkey environment
     # where env_name one of:

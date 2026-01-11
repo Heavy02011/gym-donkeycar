@@ -6,6 +6,8 @@ import uuid
 import gymnasium as gym
 import numpy as np
 
+import gym_donkeycar  # noqa: F401
+
 if __name__ == "__main__":
     # Initialize the donkey environment
     # where env_name one of:

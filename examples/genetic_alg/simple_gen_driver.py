@@ -16,6 +16,8 @@ import gymnasium as gym
 import numpy as np
 from simple_gen import GeneticAlg, KerasNNAgent
 
+import gym_donkeycar  # noqa: F401
+
 # noisy, noisy tensorflow. we love you.
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
