@@ -6,12 +6,13 @@ notes: a most basic implementation of genetic cross breeding and mutation to att
         a neural network. Assumes the standard Keras model from Donkeycar project.
         Lower score means less loss = better.
 """
+
 import argparse
 import os
 import threading
 import warnings
 
-import gym
+import gymnasium as gym
 import numpy as np
 from simple_gen import GeneticAlg, KerasNNAgent
 
@@ -138,18 +139,18 @@ class KerasDriveAgent(KerasNNAgent):
 
     def simulate(self, env):
         # Reset the environment
-        obv = env.reset()
+        obv, info = env.reset()
 
         for _ in range(self.conf["MAX_TIME_STEPS"]):
             # Select an action
             action = self.select_action(obv)
 
             # execute the action
-            obv, reward, done, _ = env.step(action)
+            obv, reward, terminated, truncated, _ = env.step(action)
 
             self.score += reward
 
-            if done:
+            if terminated or truncated:
                 break
 
         print("agent simulate step done. total reward:", self.score)

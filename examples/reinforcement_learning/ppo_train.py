@@ -5,10 +5,11 @@ date: 13 October 2018
 notes: ppo2 test from stable-baselines here:
 https://github.com/hill-a/stable-baselines
 """
+
 import argparse
 import uuid
 
-import gym
+import gymnasium as gym
 from stable_baselines3 import PPO
 
 if __name__ == "__main__":
@@ -70,13 +71,13 @@ if __name__ == "__main__":
 
         model = PPO.load("ppo_donkey")
 
-        obs = env.reset()
+        obs, info = env.reset()
         for _ in range(1000):
             action, _states = model.predict(obs, deterministic=True)
-            obs, reward, done, info = env.step(action)
+            obs, reward, terminated, truncated, info = env.step(action)
             env.render()
-            if done:
-                obs = env.reset()
+            if terminated or truncated:
+                obs, info = env.reset()
 
         print("done testing")
 
@@ -90,12 +91,12 @@ if __name__ == "__main__":
         # set up model in learning mode with goal number of timesteps to complete
         model.learn(total_timesteps=10000)
 
-        obs = env.reset()
+        obs, info = env.reset()
 
         for i in range(1000):
             action, _states = model.predict(obs, deterministic=True)
 
-            obs, reward, done, info = env.step(action)
+            obs, reward, terminated, truncated, info = env.step(action)
 
             try:
                 env.render()
@@ -103,8 +104,8 @@ if __name__ == "__main__":
                 print(e)
                 print("failure in render, continuing...")
 
-            if done:
-                obs = env.reset()
+            if terminated or truncated:
+                obs, info = env.reset()
 
             if i % 100 == 0:
                 print("saving...")
