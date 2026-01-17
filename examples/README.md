@@ -2,7 +2,7 @@
 
 Sample code to use the gym-donkeycar Gymnasium environment.
 
-**📖 For detailed documentation, installation requirements, and usage instructions, see [EXAMPLES_README.md](EXAMPLES_README.md)**
+**📖 For Gymnasium documentation and API reference, see [gymnasium.farama.org](https://gymnasium.farama.org/)**
 
 ## Quick Start
 
@@ -28,7 +28,7 @@ All examples have been updated for Gymnasium API. Key changes:
 - `reset()` returns 2 values: `obs, info`
 - Access custom attributes with `env.unwrapped.viewer`
 
-See [EXAMPLES_README.md](EXAMPLES_README.md) for complete details and [../tests/UPDATE_GYM2GYMNASIUM.md](../tests/UPDATE_GYM2GYMNASIUM.md) for migration guide.
+See the [Gymnasium Migration Guide](https://gymnasium.farama.org/introduction/migration_guide/) for complete migration details.
 
 ## Examples Overview
 
